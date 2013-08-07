@@ -3,9 +3,9 @@
   Serviceability = (function(){
     Serviceability.displayName = 'Serviceability';
     var prototype = Serviceability.prototype, constructor = Serviceability;
-    function Serviceability(srcAddress, $parent){
+    function Serviceability(srcAddress, parentSelector){
       var this$ = this;
-      this.$parent = $parent;
+      this.parentSelector = parentSelector;
       this.loadData(srcAddress, function(){
         return this$.computeStatistics(this$.data);
       });
@@ -32,5 +32,5 @@
     };
     return Serviceability;
   }());
-  serviceability = new Serviceability('dailyBins_20120319.json', $(".container"));
+  serviceability = new Serviceability('dailyBins_20120319.json', ".container");
 }).call(this);

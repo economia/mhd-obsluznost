@@ -1,5 +1,5 @@
 class Serviceability
-    (srcAddress, @$parent) ->
+    (srcAddress, @parentSelector) ->
         <~ @loadData srcAddress
         @computeStatistics @data
 
@@ -18,4 +18,4 @@ class Serviceability
 
 serviceability = new Serviceability do
     'dailyBins_20120319.json'
-    $ ".container"
+    ".container"
