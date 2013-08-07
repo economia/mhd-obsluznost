@@ -35,7 +35,7 @@
       var x$, days, color, y$;
       x$ = days = this.container.selectAll(".day").data(this.data).enter().append("div");
       x$.attr('class', 'day');
-      color = d3.scale.linear().domain([0, this.maxValue * 0.25, this.maxValue * 0.5, this.maxValue * 0.75, this.maxValue]).range(['#FEF0D9', '#FDCC8A', '#FC8D59', '#E34A33', '#B30000']);
+      color = d3.scale.linear().domain([0, this.maxValue * 0.28, this.maxValue]).range(['#2C7BB6', '#FFFFBF', '#D7191C']);
       y$ = days.selectAll(".bin").data(function(it){
         return it;
       }).enter().append("div");

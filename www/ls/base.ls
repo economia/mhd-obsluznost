@@ -23,13 +23,8 @@ class Serviceability
             .enter!append "div"
                 ..attr \class \day
         color = d3.scale.linear!
-            .domain [0 @maxValue * 0.25, @maxValue * 0.5, @maxValue*0.75, @maxValue]
-            .range  ['#FEF0D9' '#FDCC8A' '#FC8D59' '#E34A33' '#B30000']
-
-
-
-
-
+            .domain [0, @maxValue*0.28, @maxValue]
+            .range  ['#2C7BB6', '#FFFFBF', '#D7191C']
 
         days.selectAll ".bin"
             .data -> it
