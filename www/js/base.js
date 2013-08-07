@@ -32,10 +32,18 @@
       return this.maxValue = Math.max.apply(Math, values);
     };
     prototype.draw = function(){
-      var x$, days;
+      var x$, days, color, y$;
       x$ = days = this.container.selectAll(".day").data(this.data).enter().append("div");
       x$.attr('class', 'day');
-      return x$;
+      color = d3.scale.linear().domain([0, this.maxValue]).range(["#222", '#0f0']);
+      y$ = days.selectAll(".bin").data(function(it){
+        return it;
+      }).enter().append("div");
+      y$.attr('class', 'bin');
+      y$.style('background', function(it){
+        return color(it);
+      });
+      return y$;
     };
     return Serviceability;
   }());
