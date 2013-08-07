@@ -5,9 +5,10 @@
     var prototype = Serviceability.prototype, constructor = Serviceability;
     function Serviceability(srcAddress, parentSelector){
       var this$ = this;
-      this.parentSelector = parentSelector;
+      this.container = d3.select(parentSelector);
       this.loadData(srcAddress, function(){
-        return this$.computeStatistics(this$.data);
+        this$.computeStatistics(this$.data);
+        return this$.draw();
       });
     }
     prototype.loadData = function(srcAddress, cb){
@@ -29,6 +30,12 @@
         }
       }
       return this.maxValue = Math.max.apply(Math, values);
+    };
+    prototype.draw = function(){
+      var x$, days;
+      x$ = days = this.container.selectAll(".day").data(this.data).enter().append("div");
+      x$.attr('class', 'day');
+      return x$;
     };
     return Serviceability;
   }());
