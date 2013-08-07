@@ -66,7 +66,7 @@ formatTime = (seconds) ->
 getTime = (binIndex) ->
     seconds = binIndex * binLength
     "#{formatTime seconds} - #{formatTime seconds + binLength}"
-
+d3.selectAll ".fallback" .remove!
 new Serviceability do
     'dailyBins_20120319.json'
     ".container.c1"

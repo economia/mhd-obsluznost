@@ -87,6 +87,7 @@
     seconds = binIndex * binLength;
     return formatTime(seconds) + " - " + formatTime(seconds + binLength);
   };
+  d3.selectAll(".fallback").remove();
   new Serviceability('dailyBins_20120319.json', ".container.c1");
   new Serviceability('dailyBins_20130625.json', ".container.c2");
   new Serviceability('dailyBins_20130701.json', ".container.c3");
