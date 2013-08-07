@@ -31,14 +31,21 @@ class Serviceability
             .data -> it
             .enter!append "div"
                 ..attr \class \bin
-                ..attr \data-tooltip (value, binIndex) -> "#{getTime binIndex}: #value obsloužených zastávek"
+                ..attr \data-tooltip (value, binIndex) -> escape "<strong>#{getTime binIndex}:</strong> <strong>#value</strong> obsloužených zastávek"
                 ..style \background -> color it
 
+formatTime = (seconds) ->
+    hours = "#{Math.floor seconds/3600}"
+    minutes = "#{Math.floor seconds%3600/60}"
+    while hours.length < 2
+        hours = "0#hours"
+    while minutes.length < 2
+        minutes = "0#minutes"
+    "#{hours}:#{minutes}"
 
 getTime = (binIndex) ->
     seconds = binIndex * binLength
-    "#{Math.floor seconds/3600}:#{Math.floor seconds%3600/60}"
-
+    "#{formatTime seconds} - #{formatTime seconds + binLength}"
 
 serviceability = new Serviceability do
     'dailyBins_20120319.json'

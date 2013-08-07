@@ -1,5 +1,5 @@
 (function(){
-  var binLength, Serviceability, getTime, serviceability;
+  var binLength, Serviceability, formatTime, getTime, serviceability;
   binLength = 600;
   Serviceability = (function(){
     Serviceability.displayName = 'Serviceability';
@@ -42,7 +42,7 @@
       }).enter().append("div");
       y$.attr('class', 'bin');
       y$.attr('data-tooltip', function(value, binIndex){
-        return getTime(binIndex) + ": " + value + " obsloužených zastávek";
+        return escape("<strong>" + getTime(binIndex) + ":</strong> <strong>" + value + "</strong> obsloužených zastávek");
       });
       y$.style('background', function(it){
         return color(it);
@@ -51,10 +51,22 @@
     };
     return Serviceability;
   }());
+  formatTime = function(seconds){
+    var hours, minutes;
+    hours = Math.floor(seconds / 3600) + "";
+    minutes = Math.floor(seconds % 3600 / 60) + "";
+    while (hours.length < 2) {
+      hours = "0" + hours;
+    }
+    while (minutes.length < 2) {
+      minutes = "0" + minutes;
+    }
+    return hours + ":" + minutes;
+  };
   getTime = function(binIndex){
     var seconds;
     seconds = binIndex * binLength;
-    return Math.floor(seconds / 3600) + ":" + Math.floor(seconds % 3600 / 60);
+    return formatTime(seconds) + " - " + formatTime(seconds + binLength);
   };
   serviceability = new Serviceability('dailyBins_20120319.json', ".container");
   new Tooltip().watchElements();

@@ -2,12 +2,14 @@ body
     margin 0px
 
     .container
+        width 550px
+        float left
         .day
-            border-right 1px solid white
+            margin-right 1px
             float left
-            width (20px*6)
+            width ((@width / 7) - 1)
             .bin
-                width 20px
-                height 15px
+                width (@width / 6)
+                height 10px
                 float left
 
