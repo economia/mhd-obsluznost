@@ -24,3 +24,12 @@ body #wrap .container .day .bin {
   height: 10px;
   float: left;
 }
+body #wrap .container .day .dayPopis {
+  width: 77.57142857142857px;
+  text-align: center;
+  padding-bottom: 5px;
+}
+body #wrap .container.c2 .dayPopis,
+body #wrap .container.c3 .dayPopis {
+  display: none;
+}

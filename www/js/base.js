@@ -1,7 +1,9 @@
 (function(){
-  var binLength, maxValue, Serviceability, formatTime, getTime;
+  var binLength, maxValue, dayTexts, minuteTexts, Serviceability, formatTime, getTime;
   binLength = 600;
   maxValue = 16509;
+  dayTexts = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota', 'Neděle'];
+  minuteTexts = ['00', '10', '20', '30', '40', '50'];
   Serviceability = (function(){
     Serviceability.displayName = 'Serviceability';
     var prototype = Serviceability.prototype, constructor = Serviceability;
@@ -34,21 +36,26 @@
       return this.maxValue = Math.max.apply(Math, values);
     };
     prototype.draw = function(){
-      var x$, days, color, y$;
+      var x$, days, y$, color, z$;
       x$ = days = this.container.selectAll(".day").data(this.data).enter().append("div");
       x$.attr('class', 'day');
+      y$ = x$.append("div");
+      y$.attr('class', 'dayPopis');
+      y$.text(function(data, index){
+        return dayTexts[index];
+      });
       color = d3.scale.linear().domain([0, maxValue * 0.23, maxValue]).range(['#2C7BB6', '#FFFFBF', '#D7191C']);
-      y$ = days.selectAll(".bin").data(function(it){
+      z$ = days.selectAll(".bin").data(function(it){
         return it;
       }).enter().append("div");
-      y$.attr('class', 'bin');
-      y$.attr('data-tooltip', function(value, binIndex){
+      z$.attr('class', 'bin');
+      z$.attr('data-tooltip', function(value, binIndex){
         return escape("<strong>" + getTime(binIndex) + ":</strong> <strong>" + value + "</strong> obsloužených zastávek");
       });
-      y$.style('background', function(it){
+      z$.style('background', function(it){
         return color(it);
       });
-      return y$;
+      return z$;
     };
     return Serviceability;
   }());

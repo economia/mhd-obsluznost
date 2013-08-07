@@ -1,5 +1,8 @@
 binLength = 600_seconds
 maxValue = 16509
+dayTexts = <[Pondělí Úterý Středa Čtvrtek Pátek Sobota Neděle]>
+minuteTexts = <[00 10 20 30 40 50]>
+
 class Serviceability
     (srcAddress, parentSelector) ->
         @container = d3.select parentSelector
@@ -24,6 +27,9 @@ class Serviceability
             .data @data
             .enter!append "div"
                 ..attr \class \day
+                ..append "div"
+                    ..attr \class \dayPopis
+                    ..text (data, index) -> dayTexts[index]
         color = d3.scale.linear!
             .domain [0, maxValue*0.23, maxValue]
             .range  ['#2C7BB6', '#FFFFBF', '#D7191C']
