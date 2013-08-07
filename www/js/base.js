@@ -1,5 +1,6 @@
 (function(){
-  var Serviceability, serviceability;
+  var binLength, Serviceability, getTime, serviceability;
+  binLength = 600;
   Serviceability = (function(){
     Serviceability.displayName = 'Serviceability';
     var prototype = Serviceability.prototype, constructor = Serviceability;
@@ -40,6 +41,9 @@
         return it;
       }).enter().append("div");
       y$.attr('class', 'bin');
+      y$.attr('data-tooltip', function(value, binIndex){
+        return getTime(binIndex) + ": " + value + " obsloužených zastávek";
+      });
       y$.style('background', function(it){
         return color(it);
       });
@@ -47,5 +51,11 @@
     };
     return Serviceability;
   }());
+  getTime = function(binIndex){
+    var seconds;
+    seconds = binIndex * binLength;
+    return Math.floor(seconds / 3600) + ":" + Math.floor(seconds % 3600 / 60);
+  };
   serviceability = new Serviceability('dailyBins_20120319.json', ".container");
+  new Tooltip().watchElements();
 }).call(this);

@@ -1,3 +1,4 @@
+binLength = 600_seconds
 class Serviceability
     (srcAddress, parentSelector) ->
         @container = d3.select parentSelector
@@ -30,10 +31,17 @@ class Serviceability
             .data -> it
             .enter!append "div"
                 ..attr \class \bin
+                ..attr \data-tooltip (value, binIndex) -> "#{getTime binIndex}: #value obsloužených zastávek"
                 ..style \background -> color it
 
+
+getTime = (binIndex) ->
+    seconds = binIndex * binLength
+    "#{Math.floor seconds/3600}:#{Math.floor seconds%3600/60}"
 
 
 serviceability = new Serviceability do
     'dailyBins_20120319.json'
     ".container"
+
+new Tooltip!watchElements!
