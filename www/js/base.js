@@ -1,6 +1,7 @@
 (function(){
-  var binLength, Serviceability, formatTime, getTime, serviceability;
+  var binLength, maxValue, Serviceability, formatTime, getTime;
   binLength = 600;
+  maxValue = 16509;
   Serviceability = (function(){
     Serviceability.displayName = 'Serviceability';
     var prototype = Serviceability.prototype, constructor = Serviceability;
@@ -36,7 +37,7 @@
       var x$, days, color, y$;
       x$ = days = this.container.selectAll(".day").data(this.data).enter().append("div");
       x$.attr('class', 'day');
-      color = d3.scale.linear().domain([0, this.maxValue * 0.28, this.maxValue]).range(['#2C7BB6', '#FFFFBF', '#D7191C']);
+      color = d3.scale.linear().domain([0, maxValue * 0.23, maxValue]).range(['#2C7BB6', '#FFFFBF', '#D7191C']);
       y$ = days.selectAll(".bin").data(function(it){
         return it;
       }).enter().append("div");
@@ -68,6 +69,8 @@
     seconds = binIndex * binLength;
     return formatTime(seconds) + " - " + formatTime(seconds + binLength);
   };
-  serviceability = new Serviceability('dailyBins_20120319.json', ".container");
+  new Serviceability('dailyBins_20120319.json', ".container.c1");
+  new Serviceability('dailyBins_20130625.json', ".container.c2");
+  new Serviceability('dailyBins_20130701.json', ".container.c3");
   new Tooltip().watchElements();
 }).call(this);
