@@ -52,9 +52,7 @@ body #wrap .container .day .minuteMarks .minuteMark {
   text-align: center;
 }
 body #wrap .container.c2 .dayMark,
-body #wrap .container.c3 .dayMark,
-body #wrap .container.c2 .minuteMarks,
-body #wrap .container.c3 .minuteMarks {
+body #wrap .container.c3 .dayMark {
   display: none;
 }
 body #wrap .container.c2 .hourMarks,
