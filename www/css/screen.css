@@ -7,7 +7,7 @@ body #wrap {
   margin-left: 50px;
 }
 body #wrap h2 {
-  font-size: 1.3em;
+  font-size: 1.1em;
   margin-bottom: 0.5em;
 }
 body #wrap .container {
@@ -27,7 +27,8 @@ body #wrap .container .day .bin {
 body #wrap .container .day .dayPopis {
   width: 77.57142857142857px;
   text-align: center;
-  padding-bottom: 5px;
+  padding-bottom: 3px;
+  font-size: 0.8em;
 }
 body #wrap .container.c2 .dayPopis,
 body #wrap .container.c3 .dayPopis {
