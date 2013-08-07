@@ -16,14 +16,14 @@ body #wrap .container {
 body #wrap .container .hourMarks {
   float: left;
   text-align: right;
-  width: 22px;
+  width: 25px;
   margin-top: 19px;
 }
 body #wrap .container .hourMarks .hourMark {
   margin-right: 5px;
   position: relative;
   top: -3px;
-  width: 17px;
+  width: 20px;
   float: right;
   clear: both;
   height: 20px;
@@ -32,22 +32,22 @@ body #wrap .container .hourMarks .hourMark {
 body #wrap .container .day {
   margin-right: 1px;
   float: left;
-  width: 74.42857142857143px;
+  width: 73px;
 }
 body #wrap .container .day .bin {
-  width: 12.404761904761905px;
+  width: 12.166666666666666px;
   height: 10px;
   float: left;
 }
 body #wrap .container .day .dayPopis {
-  width: 74.42857142857143px;
+  width: 73px;
   text-align: center;
   padding-bottom: 3px;
   font-size: 0.8em;
 }
 body #wrap .container .day .minutesPopis .minutePopis {
   float: left;
-  width: 24.80952380952381px;
+  width: 24.333333333333332px;
   font-size: 0.7em;
   text-align: center;
 }
