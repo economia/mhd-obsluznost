@@ -62,3 +62,6 @@ body #wrap .container.c2 .hourMarks,
 body #wrap .container.c3 .hourMarks {
   margin-top: 0px;
 }
+.tooltip {
+  max-width: 500px;
+}
