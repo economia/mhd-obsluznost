@@ -3,7 +3,7 @@
   binLength = 600;
   maxValue = 16509;
   dayTexts = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota', 'Neděle'];
-  minuteTexts = ['00', '10', '20', '30', '40', '50'];
+  minuteTexts = ['10', '30', '50'];
   Serviceability = (function(){
     Serviceability.displayName = 'Serviceability';
     var prototype = Serviceability.prototype, constructor = Serviceability;
@@ -36,7 +36,7 @@
       return this.maxValue = Math.max.apply(Math, values);
     };
     prototype.draw = function(){
-      var x$, days, y$, color, z$;
+      var x$, days, y$, color, z$, z1$;
       x$ = days = this.container.selectAll(".day").data(this.data).enter().append("div");
       x$.attr('class', 'day');
       y$ = x$.append("div");
@@ -55,7 +55,12 @@
       z$.style('background', function(it){
         return color(it);
       });
-      return z$;
+      z1$ = days.append("div").attr("class", "minutesPopis").selectAll(".minutePopis").data(minuteTexts).enter().append('div');
+      z1$.attr('class', 'minutePopis');
+      z1$.text(function(it){
+        return it;
+      });
+      return z1$;
     };
     return Serviceability;
   }());

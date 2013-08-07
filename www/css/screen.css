@@ -30,7 +30,15 @@ body #wrap .container .day .dayPopis {
   padding-bottom: 3px;
   font-size: 0.8em;
 }
+body #wrap .container .day .minutesPopis .minutePopis {
+  float: left;
+  width: 25.857142857142858px;
+  font-size: 0.7em;
+  text-align: center;
+}
 body #wrap .container.c2 .dayPopis,
-body #wrap .container.c3 .dayPopis {
+body #wrap .container.c3 .dayPopis,
+body #wrap .container.c2 .minutesPopis,
+body #wrap .container.c3 .minutesPopis {
   display: none;
 }

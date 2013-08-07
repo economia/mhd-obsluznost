@@ -1,7 +1,7 @@
 binLength = 600_seconds
 maxValue = 16509
 dayTexts = <[Pondělí Úterý Středa Čtvrtek Pátek Sobota Neděle]>
-minuteTexts = <[00 10 20 30 40 50]>
+minuteTexts = <[10 30 50 ]>
 
 class Serviceability
     (srcAddress, parentSelector) ->
@@ -41,6 +41,12 @@ class Serviceability
                 ..attr \data-tooltip (value, binIndex) -> escape "<strong>#{getTime binIndex}:</strong> <strong>#value</strong> obsloužených zastávek"
                 ..style \background -> color it
 
+        days.append "div" .attr "class", "minutesPopis" .selectAll ".minutePopis"
+            .data minuteTexts
+            .enter!.append \div
+                ..attr \class \minutePopis
+                ..text ->
+                    it
 formatTime = (seconds) ->
     hours = "#{Math.floor seconds/3600}"
     minutes = "#{Math.floor seconds%3600/60}"
