@@ -25,7 +25,7 @@ class Serviceability
 
     draw: ->
         hourMarks = @container.append "div" .attr "class" "hourMarks"
-            .selectAll "hourPopis"
+            .selectAll "hourMark"
             .data hoursTexts
             .enter!append "div"
                 ..attr "class" \hourMark
@@ -35,7 +35,7 @@ class Serviceability
             .enter!append "div"
                 ..attr \class \day
                 ..append "div"
-                    ..attr \class \dayPopis
+                    ..attr \class \dayMark
                     ..text (data, index) -> dayTexts[index]
         color = d3.scale.linear!
             .domain [0, maxValue*0.23, maxValue]
@@ -48,10 +48,10 @@ class Serviceability
                 ..attr \data-tooltip (value, binIndex) -> escape "<strong>#{getTime binIndex}:</strong> <strong>#value</strong> obsloužených zastávek"
                 ..style \background -> color it
 
-        days.append "div" .attr "class", "minutesPopis" .selectAll ".minutePopis"
+        days.append "div" .attr "class", "minuteMarks" .selectAll ".minuteMark"
             .data minuteTexts
             .enter!.append \div
-                ..attr \class \minutePopis
+                ..attr \class \minuteMark
                 ..text ->
                     it
 formatTime = (seconds) ->

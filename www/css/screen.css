@@ -39,22 +39,22 @@ body #wrap .container .day .bin {
   height: 10px;
   float: left;
 }
-body #wrap .container .day .dayPopis {
+body #wrap .container .day .dayMark {
   width: 73px;
   text-align: center;
   padding-bottom: 3px;
   font-size: 0.8em;
 }
-body #wrap .container .day .minutesPopis .minutePopis {
+body #wrap .container .day .minuteMarks .minuteMark {
   float: left;
   width: 24.333333333333332px;
   font-size: 0.7em;
   text-align: center;
 }
-body #wrap .container.c2 .dayPopis,
-body #wrap .container.c3 .dayPopis,
-body #wrap .container.c2 .minutesPopis,
-body #wrap .container.c3 .minutesPopis {
+body #wrap .container.c2 .dayMark,
+body #wrap .container.c3 .dayMark,
+body #wrap .container.c2 .minuteMarks,
+body #wrap .container.c3 .minuteMarks {
   display: none;
 }
 body #wrap .container.c2 .hourMarks,

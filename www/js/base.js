@@ -38,7 +38,7 @@
     };
     prototype.draw = function(){
       var x$, hourMarks, y$, days, z$, color, z1$, z2$;
-      x$ = hourMarks = this.container.append("div").attr("class", "hourMarks").selectAll("hourPopis").data(hoursTexts).enter().append("div");
+      x$ = hourMarks = this.container.append("div").attr("class", "hourMarks").selectAll("hourMark").data(hoursTexts).enter().append("div");
       x$.attr("class", 'hourMark');
       x$.text(function(it){
         return it;
@@ -46,7 +46,7 @@
       y$ = days = this.container.selectAll(".day").data(this.data).enter().append("div");
       y$.attr('class', 'day');
       z$ = y$.append("div");
-      z$.attr('class', 'dayPopis');
+      z$.attr('class', 'dayMark');
       z$.text(function(data, index){
         return dayTexts[index];
       });
@@ -61,8 +61,8 @@
       z1$.style('background', function(it){
         return color(it);
       });
-      z2$ = days.append("div").attr("class", "minutesPopis").selectAll(".minutePopis").data(minuteTexts).enter().append('div');
-      z2$.attr('class', 'minutePopis');
+      z2$ = days.append("div").attr("class", "minuteMarks").selectAll(".minuteMark").data(minuteTexts).enter().append('div');
+      z2$.attr('class', 'minuteMark');
       z2$.text(function(it){
         return it;
       });
