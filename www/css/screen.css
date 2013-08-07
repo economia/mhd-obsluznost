@@ -1,3 +1,13 @@
 body {
   margin: 0px;
 }
+body .container .day {
+  border-right: 1px solid #fff;
+  float: left;
+  width: 120px;
+}
+body .container .day .bin {
+  width: 20px;
+  height: 15px;
+  float: left;
+}
