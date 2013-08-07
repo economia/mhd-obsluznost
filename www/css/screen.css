@@ -1,17 +1,24 @@
 body {
+  font-family: arial, helvetica, sans-serif;
   margin: 0px;
 }
-body .container {
+body #wrap {
   width: 550px;
+}
+body #wrap h2 {
+  font-size: 1.3em;
+  margin-bottom: 0.5em;
+}
+body #wrap .container {
   float: left;
   margin-bottom: 20px;
 }
-body .container .day {
+body #wrap .container .day {
   margin-right: 1px;
   float: left;
   width: 77.57142857142857px;
 }
-body .container .day .bin {
+body #wrap .container .day .bin {
   width: 12.928571428571429px;
   height: 10px;
   float: left;

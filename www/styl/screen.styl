@@ -1,16 +1,20 @@
 body
+    font-family arial, helvetica, sans-serif
     margin 0px
-
-    .container
+    #wrap
         width 550px
-        float left
-        margin-bottom 20px
-        .day
-            margin-right 1px
+        h2
+            font-size 1.3em
+            margin-bottom 0.5em
+        .container
             float left
-            width ((@width / 7) - 1)
-            .bin
-                width (@width / 6)
-                height 10px
+            margin-bottom 20px
+            .day
+                margin-right 1px
                 float left
+                width ((@width / 7) - 1)
+                .bin
+                    width (@width / 6)
+                    height 10px
+                    float left
 
