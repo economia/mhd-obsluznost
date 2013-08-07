@@ -14,25 +14,41 @@ body #wrap .container {
   float: left;
   margin-bottom: 20px;
 }
+body #wrap .container .hourMarks {
+  float: left;
+  text-align: right;
+  width: 22px;
+  margin-top: 19px;
+}
+body #wrap .container .hourMarks .hourMark {
+  margin-right: 5px;
+  position: relative;
+  top: -3px;
+  width: 17px;
+  float: right;
+  clear: both;
+  height: 20px;
+  font-size: 0.8em;
+}
 body #wrap .container .day {
   margin-right: 1px;
   float: left;
-  width: 77.57142857142857px;
+  width: 74.42857142857143px;
 }
 body #wrap .container .day .bin {
-  width: 12.928571428571429px;
+  width: 12.404761904761905px;
   height: 10px;
   float: left;
 }
 body #wrap .container .day .dayPopis {
-  width: 77.57142857142857px;
+  width: 74.42857142857143px;
   text-align: center;
   padding-bottom: 3px;
   font-size: 0.8em;
 }
 body #wrap .container .day .minutesPopis .minutePopis {
   float: left;
-  width: 25.857142857142858px;
+  width: 24.80952380952381px;
   font-size: 0.7em;
   text-align: center;
 }
@@ -41,4 +57,8 @@ body #wrap .container.c3 .dayPopis,
 body #wrap .container.c2 .minutesPopis,
 body #wrap .container.c3 .minutesPopis {
   display: none;
+}
+body #wrap .container.c2 .hourMarks,
+body #wrap .container.c3 .hourMarks {
+  margin-top: 0px;
 }

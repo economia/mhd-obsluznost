@@ -2,6 +2,7 @@ binLength = 600_seconds
 maxValue = 16509
 dayTexts = <[Pondělí Úterý Středa Čtvrtek Pátek Sobota Neděle]>
 minuteTexts = <[10 30 50 ]>
+hoursTexts = [0 til 24 by 2]
 
 class Serviceability
     (srcAddress, parentSelector) ->
@@ -23,6 +24,12 @@ class Serviceability
         @maxValue = Math.max ...values
 
     draw: ->
+        hourMarks = @container.append "div" .attr "class" "hourMarks"
+            .selectAll "hourPopis"
+            .data hoursTexts
+            .enter!append "div"
+                ..attr "class" \hourMark
+                ..text -> it
         days = @container.selectAll ".day"
             .data @data
             .enter!append "div"

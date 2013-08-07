@@ -10,10 +10,25 @@ body
         .container
             float left
             margin-bottom 20px
+            hourMarkWidth = 22px
+            .hourMarks
+                float left
+                text-align right
+                width hourMarkWidth
+                margin-top 19px
+                .hourMark
+                    margin-right 5px
+                    position relative
+                    top -3px
+                    width (hourMarkWidth - @margin-right)
+                    float right
+                    clear both
+                    height 20px
+                    font-size 0.8em
             .day
                 margin-right 1px
                 float left
-                width ((@width / 7) - 1)
+                width (((@width - hourMarkWidth)/ 7) - 1)
                 .bin
                     width (@width / 6)
                     height 10px
@@ -34,4 +49,6 @@ body
                 .dayPopis
                 .minutesPopis
                     display none
+                .hourMarks
+                    margin-top 0px
 
