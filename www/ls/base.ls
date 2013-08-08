@@ -1,5 +1,6 @@
 binLength = 600_seconds
-maxValue = 16509
+maxValue = 9787
+midTonePositions = [0.2 0.35]
 dayTexts = <[Pondělí Úterý Středa Čtvrtek Pátek Sobota Neděle]>
 minuteTexts = <[10 30 50 ]>
 hoursTexts = [0 til 24 by 2]
@@ -21,6 +22,7 @@ class Serviceability
         for day, dayIndex in data
             for dayValues in day
                 values.push dayValues
+
         @maxValue = Math.max ...values
 
     draw: ->
@@ -38,8 +40,8 @@ class Serviceability
                     ..attr \class \dayMark
                     ..text (data, index) -> dayTexts[index]
         color = d3.scale.linear!
-            .domain [0, maxValue*0.23, maxValue]
-            .range  ['#2C7BB6', '#FFFFBF', '#D7191C']
+            .domain [0, maxValue*midTonePositions.0, maxValue*midTonePositions.1, maxValue]
+            .range  ['#2C7BB6', '#ABD9E9', '#FDAE61' '#D7191C']
 
         days.selectAll ".bin"
             .data -> it
@@ -76,6 +78,6 @@ new Serviceability do
     ".container.c2"
 
 new Serviceability do
-    'dailyBins_20130701.json'
+    'dailyBins_20130705.json'
     ".container.c3"
 new Tooltip!watchElements!

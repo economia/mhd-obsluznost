@@ -1,7 +1,8 @@
 (function(){
-  var binLength, maxValue, dayTexts, minuteTexts, hoursTexts, Serviceability, formatTime, getTime;
+  var binLength, maxValue, midTonePositions, dayTexts, minuteTexts, hoursTexts, Serviceability, formatTime, getTime;
   binLength = 600;
-  maxValue = 16509;
+  maxValue = 9787;
+  midTonePositions = [0.2, 0.35];
   dayTexts = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota', 'Neděle'];
   minuteTexts = ['10', '30', '50'];
   hoursTexts = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
@@ -34,7 +35,8 @@
           values.push(dayValues);
         }
       }
-      return this.maxValue = Math.max.apply(Math, values);
+      this.maxValue = Math.max.apply(Math, values);
+      return console.log(this.maxValue);
     };
     prototype.draw = function(){
       var x$, hourMarks, y$, days, z$, color, z1$, z2$;
@@ -50,7 +52,7 @@
       z$.text(function(data, index){
         return dayTexts[index];
       });
-      color = d3.scale.linear().domain([0, maxValue * 0.23, maxValue]).range(['#2C7BB6', '#FFFFBF', '#D7191C']);
+      color = d3.scale.linear().domain([0, maxValue * midTonePositions[0], maxValue * midTonePositions[1], maxValue]).range(['#2C7BB6', '#ABD9E9', '#FDAE61', '#D7191C']);
       z1$ = days.selectAll(".bin").data(function(it){
         return it;
       }).enter().append("div");
@@ -90,6 +92,6 @@
   d3.selectAll(".fallback").remove();
   new Serviceability('dailyBins_20120319.json', ".container.c1");
   new Serviceability('dailyBins_20130625.json', ".container.c2");
-  new Serviceability('dailyBins_20130701.json', ".container.c3");
+  new Serviceability('dailyBins_20130705.json', ".container.c3");
   new Tooltip().watchElements();
 }).call(this);
