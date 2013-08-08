@@ -8,6 +8,7 @@ body #wrap {
 body #wrap h2 {
   font-size: 1.1em;
   margin-bottom: 0.5em;
+  margin-left: 39px;
 }
 body #wrap .container {
   float: left;
@@ -16,40 +17,66 @@ body #wrap .container {
 body #wrap .container .hourMarks {
   float: left;
   text-align: right;
-  width: 25px;
+  width: 39px;
   margin-top: 19px;
+  position: relative;
 }
 body #wrap .container .hourMarks .hourMark {
   margin-right: 5px;
   position: relative;
   top: -3px;
-  width: 20px;
+  width: 34px;
   float: right;
   clear: both;
   height: 20px;
   font-size: 0.8em;
 }
+body #wrap .container .hourMarks .legend {
+  float: left;
+  width: 100%;
+  text-align: center;
+  font-size: 0.72em;
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  position: absolute;
+  top: 12px;
+  left: -5px;
+  letter-spacing: 0.1em;
+}
 body #wrap .container .day {
   margin-right: 1px;
   float: left;
-  width: 73px;
+  width: 71px;
 }
 body #wrap .container .day .bin {
-  width: 12.166666666666666px;
+  width: 11.833333333333334px;
   height: 10px;
   float: left;
 }
 body #wrap .container .day .dayMark {
-  width: 73px;
+  width: 71px;
   text-align: center;
   padding-bottom: 3px;
   font-size: 0.8em;
 }
 body #wrap .container .day .minuteMarks .minuteMark {
   float: left;
-  width: 24.333333333333332px;
+  width: 23.666666666666668px;
   font-size: 0.7em;
   text-align: center;
+}
+body #wrap .container .day .minuteMarks .legend {
+  display: none;
+  float: left;
+  width: 100%;
+  text-align: center;
+  font-size: 0.7em;
+}
+body #wrap .container .day:nth-child(2) .minuteMarks .legend {
+  display: block;
 }
 body #wrap .container.c2 .dayMark,
 body #wrap .container.c3 .dayMark {

@@ -35,40 +35,47 @@
           values.push(dayValues);
         }
       }
-      this.maxValue = Math.max.apply(Math, values);
-      return console.log(this.maxValue);
+      return this.maxValue = Math.max.apply(Math, values);
     };
     prototype.draw = function(){
-      var x$, hourMarks, y$, days, z$, color, z1$, z2$;
-      x$ = hourMarks = this.container.append("div").attr("class", "hourMarks").selectAll("hourMark").data(hoursTexts).enter().append("div");
-      x$.attr("class", 'hourMark');
-      x$.text(function(it){
+      var x$, hourMarks, y$, z$, z1$, days, z2$, color, z3$, z4$, z5$, z6$;
+      x$ = hourMarks = this.container.append("div").attr("class", "hourMarks");
+      y$ = x$.selectAll("hourMark").data(hoursTexts).enter().append("div");
+      y$.attr("class", 'hourMark');
+      y$.text(function(it){
         return it;
       });
-      y$ = days = this.container.selectAll(".day").data(this.data).enter().append("div");
-      y$.attr('class', 'day');
-      z$ = y$.append("div");
-      z$.attr('class', 'dayMark');
-      z$.text(function(data, index){
+      z$ = x$.append("div");
+      z$.attr('class', "legend");
+      z$.text("Hodiny");
+      z1$ = days = this.container.selectAll(".day").data(this.data).enter().append("div");
+      z1$.attr('class', 'day');
+      z2$ = z1$.append("div");
+      z2$.attr('class', 'dayMark');
+      z2$.text(function(data, index){
         return dayTexts[index];
       });
       color = d3.scale.linear().domain([0, maxValue * midTonePositions[0], maxValue * midTonePositions[1], maxValue]).range(['#2C7BB6', '#ABD9E9', '#FDAE61', '#D7191C']);
-      z1$ = days.selectAll(".bin").data(function(it){
+      z3$ = days.selectAll(".bin").data(function(it){
         return it;
       }).enter().append("div");
-      z1$.attr('class', 'bin');
-      z1$.attr('data-tooltip', function(value, binIndex){
+      z3$.attr('class', 'bin');
+      z3$.attr('data-tooltip', function(value, binIndex){
         return escape("<strong>" + getTime(binIndex) + ":</strong> <strong>" + value + "</strong> obsloužených zastávek");
       });
-      z1$.style('background', function(it){
+      z3$.style('background', function(it){
         return color(it);
       });
-      z2$ = days.append("div").attr("class", "minuteMarks").selectAll(".minuteMark").data(minuteTexts).enter().append('div');
-      z2$.attr('class', 'minuteMark');
-      z2$.text(function(it){
+      z4$ = days.append("div").attr("class", "minuteMarks");
+      z5$ = z4$.selectAll(".minuteMark").data(minuteTexts).enter().append('div');
+      z5$.attr('class', 'minuteMark');
+      z5$.text(function(it){
         return it;
       });
-      return z2$;
+      z6$ = z4$.append("div");
+      z6$.attr('class', "legend");
+      z6$.text("minuty");
+      return z4$;
     };
     return Serviceability;
   }());

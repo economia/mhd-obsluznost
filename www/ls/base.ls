@@ -27,11 +27,14 @@ class Serviceability
 
     draw: ->
         hourMarks = @container.append "div" .attr "class" "hourMarks"
-            .selectAll "hourMark"
-            .data hoursTexts
-            .enter!append "div"
-                ..attr "class" \hourMark
-                ..text -> it
+            ..selectAll "hourMark"
+                .data hoursTexts
+                .enter!append "div"
+                    ..attr "class" \hourMark
+                    ..text -> it
+            ..append "div"
+                ..attr \class "legend"
+                ..text "Hodiny"
         days = @container.selectAll ".day"
             .data @data
             .enter!append "div"
