@@ -1,5 +1,5 @@
 (function(){
-  var binLength, maxValue, midTonePositions, dayTexts, minuteTexts, hoursTexts, GraphDrawer, Serviceability, formatTime, getTime, loadData, sources, this$ = this;
+  var binLength, maxValue, midTonePositions, dayTexts, minuteTexts, hoursTexts, GraphDrawer, Serviceability, ServiceabilityDifference, formatTime, getTime, loadData, sources, this$ = this;
   binLength = 600;
   maxValue = 9787;
   midTonePositions = [0.2, 0.35];
@@ -29,9 +29,7 @@
         return it;
       }).enter().append("div");
       z3$.attr('class', 'bin');
-      z3$.attr('data-tooltip', function(value, binIndex){
-        return escape("<strong>" + getTime(binIndex) + ":</strong> <strong>" + value + "</strong> obsloužených zastávek");
-      });
+      z3$.attr('data-tooltip', this.getTooltipText);
       z3$.style('background', function(it){
         return this$.color(it);
       });
@@ -57,7 +55,42 @@
       this.color = d3.scale.linear().domain([0, maxValue * midTonePositions[0], maxValue * midTonePositions[1], maxValue]).range(['#2C7BB6', '#ABD9E9', '#FDAE61', '#D7191C']);
       this.draw();
     }
+    prototype.getTooltipText = function(value, binIndex){
+      return escape("<strong>" + getTime(binIndex) + ":</strong> <strong>" + value + "</strong> obsloužených zastávek");
+    };
     return Serviceability;
+  }(GraphDrawer));
+  ServiceabilityDifference = (function(){
+    ServiceabilityDifference.displayName = 'ServiceabilityDifference';
+    var prototype = ServiceabilityDifference.prototype, constructor = ServiceabilityDifference;
+    importAll$(prototype, arguments[0]);
+    function ServiceabilityDifference(parentSelector, dataA, dataB){
+      this.container = d3.select(parentSelector);
+      this.data = this.computeDifference(dataA, dataB);
+      this.color = d3.scale.linear().domain([-2200, 0, 560]).range(['#FC8D59', '#FFFFBF', '#91CF60']);
+      this.draw();
+    }
+    prototype.getTooltipText = function(value, binIndex){
+      var direction;
+      direction = value > 0 ? "více" : "méně";
+      return escape("<strong>" + getTime(binIndex) + ":</strong> o <strong>" + Math.abs(value) + "</strong> " + direction + " obsloužených zastávek");
+    };
+    prototype.computeDifference = function(dataA, dataB){
+      var data, i$, len$, dayId, day, j$, len1$, hourId, value;
+      data = [];
+      for (i$ = 0, len$ = dataA.length; i$ < len$; ++i$) {
+        dayId = i$;
+        day = dataA[i$];
+        data[dayId] = [];
+        for (j$ = 0, len1$ = day.length; j$ < len1$; ++j$) {
+          hourId = j$;
+          value = day[j$];
+          data[dayId][hourId] = dataB[dayId][hourId] - dataA[dayId][hourId];
+        }
+      }
+      return data;
+    };
+    return ServiceabilityDifference;
   }(GraphDrawer));
   formatTime = function(seconds){
     var hours, minutes;
@@ -88,6 +121,7 @@
     new Serviceability(".container.c1", data[0]);
     new Serviceability(".container.c2", data[1]);
     new Serviceability(".container.c3", data[2]);
+    new ServiceabilityDifference(".container.c4", data[0], data[1]);
     return new Tooltip().watchElements();
   });
   function importAll$(obj, src){

@@ -28,7 +28,7 @@ GraphDrawer =
             .data -> it
             .enter!append "div"
                 ..attr \class \bin
-                ..attr \data-tooltip (value, binIndex) -> escape "<strong>#{getTime binIndex}:</strong> <strong>#value</strong> obsloužených zastávek"
+                ..attr \data-tooltip @getTooltipText
                 ..style \background ~> @color it
 
         days.append "div" .attr "class", "minuteMarks"
@@ -49,6 +49,32 @@ class Serviceability implements GraphDrawer
             .domain [0, maxValue*midTonePositions.0, maxValue*midTonePositions.1, maxValue]
             .range  ['#2C7BB6', '#ABD9E9', '#FDAE61' '#D7191C']
         @draw!
+
+    getTooltipText: (value, binIndex) ->
+        escape "<strong>#{getTime binIndex}:</strong> <strong>#value</strong> obsloužených zastávek"
+
+class ServiceabilityDifference implements GraphDrawer
+    (parentSelector, dataA, dataB) ->
+        @container = d3.select parentSelector
+        @data = @computeDifference dataA, dataB
+        @color = d3.scale.linear!
+            .domain [-2200, 0,560]
+            .range  ['#FC8D59' '#FFFFBF' '#91CF60']
+        @draw!
+
+    getTooltipText: (value, binIndex) ->
+        direction = if value > 0 then "více" else "méně"
+        escape "<strong>#{getTime binIndex}:</strong> o <strong>#{Math.abs value}</strong> #direction obsloužených zastávek"
+
+    computeDifference: (dataA, dataB) ->
+        data = []
+        for day, dayId in dataA
+            data[dayId] = []
+            for value, hourId in day
+                data[dayId][hourId] = dataB[dayId][hourId] - dataA[dayId][hourId]
+        data
+
+
 
 formatTime = (seconds) ->
     hours = "#{Math.floor seconds/3600}"
@@ -83,5 +109,10 @@ new Serviceability do
 new Serviceability do
     ".container.c3"
     data.2
+
+new ServiceabilityDifference do
+    ".container.c4"
+    data.0
+    data.1
 
 new Tooltip!watchElements!
