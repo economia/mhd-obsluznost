@@ -50,12 +50,16 @@ class Serviceability
                 ..attr \data-tooltip (value, binIndex) -> escape "<strong>#{getTime binIndex}:</strong> <strong>#value</strong> obsloužených zastávek"
                 ..style \background -> color it
 
-        days.append "div" .attr "class", "minuteMarks" .selectAll ".minuteMark"
-            .data minuteTexts
-            .enter!.append \div
-                ..attr \class \minuteMark
-                ..text ->
-                    it
+        days.append "div" .attr "class", "minuteMarks"
+            ..selectAll ".minuteMark"
+                .data minuteTexts
+                .enter!.append \div
+                    ..attr \class \minuteMark
+                    ..text ->
+                        it
+            ..append "div"
+                ..attr \class "legend"
+                ..text "minuty"
 formatTime = (seconds) ->
     hours = "#{Math.floor seconds/3600}"
     minutes = "#{Math.floor seconds%3600/60}"
