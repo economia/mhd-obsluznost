@@ -1,5 +1,5 @@
 (function(){
-  var binLength, maxValue, midTonePositions, dayTexts, minuteTexts, hoursTexts, Serviceability, formatTime, getTime;
+  var binLength, maxValue, midTonePositions, dayTexts, minuteTexts, hoursTexts, Serviceability, formatTime, getTime, loadData, sources, this$ = this;
   binLength = 600;
   maxValue = 9787;
   midTonePositions = [0.2, 0.35];
@@ -9,34 +9,11 @@
   Serviceability = (function(){
     Serviceability.displayName = 'Serviceability';
     var prototype = Serviceability.prototype, constructor = Serviceability;
-    function Serviceability(srcAddress, parentSelector){
-      var this$ = this;
+    function Serviceability(parentSelector, data){
+      this.data = data;
       this.container = d3.select(parentSelector);
-      this.loadData(srcAddress, function(){
-        this$.computeStatistics(this$.data);
-        return this$.draw();
-      });
+      this.draw();
     }
-    prototype.loadData = function(srcAddress, cb){
-      var this$ = this;
-      return $.getJSON("data/" + srcAddress, function(data){
-        this$.data = data;
-        return cb();
-      });
-    };
-    prototype.computeStatistics = function(data){
-      var values, i$, len$, dayIndex, day, j$, len1$, dayValues;
-      values = [];
-      for (i$ = 0, len$ = data.length; i$ < len$; ++i$) {
-        dayIndex = i$;
-        day = data[i$];
-        for (j$ = 0, len1$ = day.length; j$ < len1$; ++j$) {
-          dayValues = day[j$];
-          values.push(dayValues);
-        }
-      }
-      return this.maxValue = Math.max.apply(Math, values);
-    };
     prototype.draw = function(){
       var x$, hourMarks, y$, z$, z1$, days, z2$, color, z3$, z4$, z5$, z6$;
       x$ = hourMarks = this.container.append("div").attr("class", "hourMarks");
@@ -97,8 +74,17 @@
     return formatTime(seconds) + " - " + formatTime(seconds + binLength);
   };
   d3.selectAll(".fallback").remove();
-  new Serviceability('dailyBins_20120319.json', ".container.c1");
-  new Serviceability('dailyBins_20130625.json', ".container.c2");
-  new Serviceability('dailyBins_20130705.json', ".container.c3");
-  new Tooltip().watchElements();
+  loadData = function(source, cb){
+    var this$ = this;
+    return $.getJSON("data/" + source, function(data){
+      return cb(null, data);
+    });
+  };
+  sources = ['dailyBins_20120319.json', 'dailyBins_20130625.json', 'dailyBins_20130705.json'];
+  async.map(sources, loadData, function(err, data){
+    new Serviceability(".container.c1", data[0]);
+    new Serviceability(".container.c2", data[1]);
+    new Serviceability(".container.c3", data[2]);
+    return new Tooltip().watchElements();
+  });
 }).call(this);

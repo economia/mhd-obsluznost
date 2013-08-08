@@ -6,24 +6,9 @@ minuteTexts = <[10 30 50 ]>
 hoursTexts = [0 til 24 by 2]
 
 class Serviceability
-    (srcAddress, parentSelector) ->
+    (parentSelector, @data) ->
         @container = d3.select parentSelector
-        <~ @loadData srcAddress
-        @computeStatistics @data
         @draw!
-
-    loadData: (srcAddress, cb) ->
-        (data) <~ $.getJSON "data/#srcAddress"
-        @data = data
-        cb!
-
-    computeStatistics: (data) ->
-        values = []
-        for day, dayIndex in data
-            for dayValues in day
-                values.push dayValues
-
-        @maxValue = Math.max ...values
 
     draw: ->
         hourMarks = @container.append "div" .attr "class" "hourMarks"
@@ -76,15 +61,25 @@ getTime = (binIndex) ->
     seconds = binIndex * binLength
     "#{formatTime seconds} - #{formatTime seconds + binLength}"
 d3.selectAll ".fallback" .remove!
-new Serviceability do
+loadData = (source, cb) ->
+    (data) <~ $.getJSON "data/#source"
+    cb null, data
+sources = [
     'dailyBins_20120319.json'
-    ".container.c1"
-
-new Serviceability do
     'dailyBins_20130625.json'
-    ".container.c2"
+    'dailyBins_20130705.json'
+]
+(err, data) <~ async.map sources, loadData
+new Serviceability do
+    ".container.c1"
+    data.0
 
 new Serviceability do
-    'dailyBins_20130705.json'
+    ".container.c2"
+    data.1
+
+new Serviceability do
     ".container.c3"
+    data.2
+
 new Tooltip!watchElements!
