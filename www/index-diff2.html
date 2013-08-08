@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+        <title>Obslužnost MHD</title>
+        <script src="http://service.ihned.cz/js/jquery.min.js"></script>
+        <script src="http://service.ihned.cz/js/tooltip/tooltip.js"></script>
+        <script src="http://service.ihned.cz/js/d3.v3.min.js"></script>
+        <script src="http://service.ihned.cz/js/async.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://service.ihned.cz/js/tooltip/tooltip.css" />
+        <link rel="stylesheet" type="text/css" href="css/screen.css" />
+    </head>
+    <body>
+        <div id='wrap'>
+            <p class="fallback">Váš prohlížeč je bohužel zastaralý a nepodporuje interaktivní vizualizace. Doporučujeme jej aktualizovat, <a target="_blank" href="http://www.browserchoice.eu/">stáhnout jiný</a> nebo použít <a target="_blank" href="http://www.google.com/chromeframe">Google Chrome Frame</a> &ndash; na to nepotřebujete souhlas IT oddělení :-). Mezitím bude aplikace pracovat pouze v omezeném režimu.</p>
+            <p class="fallback"></p>
+            <h2>Změny během prázdnin</h2>
+            <div class="container c1">
+                <img class="fallback" src="img/2013-2013-7.png" alt="Množství obsloužených zastávek 2012" />
+            </div>
+            <script src="js/base.js"></script>
+            <script>
+                d3.selectAll(".fallback").remove()
+                var sources = [
+                    'dailyBins_20130625.json',
+                    'dailyBins_20130705.json'
+                ];
+                async.map(sources, loadData, function(err, data) {
+                    new ServiceabilityDifference(".container.c1", data[0], data[1]);
+                    new Tooltip().watchElements()
+                });
+            </script>
+            <script type="text/javascript">
+              var _gaq = _gaq || [];
+              _gaq.push(['_setAccount', 'UA-41281738-1']);
+              _gaq.push(['_trackPageview']);
+
+              (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+              })();
+            </script>
+        </div>
+    </body>
+</html>

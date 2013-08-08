@@ -59,7 +59,7 @@ window.ServiceabilityDifference = class ServiceabilityDifference implements Grap
         @data = @computeDifference dataA, dataB
         @color = d3.scale.linear!
             .domain [-2200, 0,560]
-            .range  ['#FC8D59' '#FFFFBF' '#91CF60']
+            .range  ['#D7191C' '#FFFFBF' '#1A9641']
         @draw!
 
     getTooltipText: (value, binIndex) ->

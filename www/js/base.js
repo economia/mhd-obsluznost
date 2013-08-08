@@ -67,7 +67,7 @@
     function ServiceabilityDifference(parentSelector, dataA, dataB){
       this.container = d3.select(parentSelector);
       this.data = this.computeDifference(dataA, dataB);
-      this.color = d3.scale.linear().domain([-2200, 0, 560]).range(['#FC8D59', '#FFFFBF', '#91CF60']);
+      this.color = d3.scale.linear().domain([-2200, 0, 560]).range(['#D7191C', '#FFFFBF', '#1A9641']);
       this.draw();
     }
     prototype.getTooltipText = function(value, binIndex){
