@@ -15,31 +15,19 @@
         <div id='wrap'>
             <p class="fallback">Váš prohlížeč je bohužel zastaralý a nepodporuje interaktivní vizualizace. Doporučujeme jej aktualizovat, <a target="_blank" href="http://www.browserchoice.eu/">stáhnout jiný</a> nebo použít <a target="_blank" href="http://www.google.com/chromeframe">Google Chrome Frame</a> &ndash; na to nepotřebujete souhlas IT oddělení :-). Mezitím bude aplikace pracovat pouze v omezeném režimu.</p>
             <p class="fallback"></p>
-
-            <h2>Rok 2012 &ndash; březen</h2>
+            <h2>Rozdíl 2012 &ndash; 2013</h2>
             <div class="container c1">
-                <img class="fallback" src="img/2012.png" alt="Množství obsloužených zastávek 2012" />
-            </div>
-            <h2>Rok 2013 &ndash; červen</h2>
-            <div class="container c2">
-                <img class="fallback" src="img/2013.png" alt="Množství obsloužených zastávek 2012 &ndash; červen" />
-            </div>
-            <h2>Rok 2013 &ndash; prázdniny</h2>
-            <div class="container c3">
-                <img class="fallback" src="img/2013-7.png" alt="Množství obsloužených zastávek 2013 &ndash; červenec" />
+                <img class="fallback" src="img/2012-2013.png" alt="Množství obsloužených zastávek 2012" />
             </div>
             <script src="js/base.js"></script>
             <script>
                 d3.selectAll(".fallback").remove()
                 var sources = [
                     'dailyBins_20120319.json',
-                    'dailyBins_20130625.json',
-                    'dailyBins_20130705.json'
+                    'dailyBins_20130625.json'
                 ];
                 async.map(sources, loadData, function(err, data) {
-                    new Serviceability(".container.c1", data[0]);
-                    new Serviceability(".container.c2", data[1]);
-                    new Serviceability(".container.c3", data[2]);
+                    new ServiceabilityDifference(".container.c1", data[0], data[1]);
                     new Tooltip().watchElements()
                 });
             </script>
