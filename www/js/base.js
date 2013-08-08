@@ -1,5 +1,5 @@
 (function(){
-  var binLength, maxValue, midTonePositions, dayTexts, minuteTexts, hoursTexts, GraphDrawer, Serviceability, ServiceabilityDifference, formatTime, getTime, loadData, sources, this$ = this;
+  var binLength, maxValue, midTonePositions, dayTexts, minuteTexts, hoursTexts, GraphDrawer, Serviceability, ServiceabilityDifference, formatTime, getTime;
   binLength = 600;
   maxValue = 9787;
   midTonePositions = [0.2, 0.35];
@@ -45,7 +45,7 @@
       return z4$;
     }
   };
-  Serviceability = (function(){
+  window.Serviceability = Serviceability = (function(){
     Serviceability.displayName = 'Serviceability';
     var prototype = Serviceability.prototype, constructor = Serviceability;
     importAll$(prototype, arguments[0]);
@@ -60,7 +60,7 @@
     };
     return Serviceability;
   }(GraphDrawer));
-  ServiceabilityDifference = (function(){
+  window.ServiceabilityDifference = ServiceabilityDifference = (function(){
     ServiceabilityDifference.displayName = 'ServiceabilityDifference';
     var prototype = ServiceabilityDifference.prototype, constructor = ServiceabilityDifference;
     importAll$(prototype, arguments[0]);
@@ -109,21 +109,12 @@
     seconds = binIndex * binLength;
     return formatTime(seconds) + " - " + formatTime(seconds + binLength);
   };
-  d3.selectAll(".fallback").remove();
-  loadData = function(source, cb){
+  window.loadData = function(source, cb){
     var this$ = this;
     return $.getJSON("data/" + source, function(data){
       return cb(null, data);
     });
   };
-  sources = ['dailyBins_20120319.json', 'dailyBins_20130625.json', 'dailyBins_20130705.json'];
-  async.map(sources, loadData, function(err, data){
-    new Serviceability(".container.c1", data[0]);
-    new Serviceability(".container.c2", data[1]);
-    new Serviceability(".container.c3", data[2]);
-    new ServiceabilityDifference(".container.c4", data[0], data[1]);
-    return new Tooltip().watchElements();
-  });
   function importAll$(obj, src){
     for (var key in src) obj[key] = src[key];
     return obj;

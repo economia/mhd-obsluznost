@@ -42,7 +42,7 @@ GraphDrawer =
                 ..attr \class "legend"
                 ..text "minuty"
 
-class Serviceability implements GraphDrawer
+window.Serviceability = class Serviceability implements GraphDrawer
     (parentSelector, @data) ->
         @container = d3.select parentSelector
         @color = d3.scale.linear!
@@ -53,7 +53,7 @@ class Serviceability implements GraphDrawer
     getTooltipText: (value, binIndex) ->
         escape "<strong>#{getTime binIndex}:</strong> <strong>#value</strong> obsloužených zastávek"
 
-class ServiceabilityDifference implements GraphDrawer
+window.ServiceabilityDifference = class ServiceabilityDifference implements GraphDrawer
     (parentSelector, dataA, dataB) ->
         @container = d3.select parentSelector
         @data = @computeDifference dataA, dataB
@@ -88,31 +88,7 @@ formatTime = (seconds) ->
 getTime = (binIndex) ->
     seconds = binIndex * binLength
     "#{formatTime seconds} - #{formatTime seconds + binLength}"
-d3.selectAll ".fallback" .remove!
-loadData = (source, cb) ->
+
+window.loadData = (source, cb) ->
     (data) <~ $.getJSON "data/#source"
     cb null, data
-sources = [
-    'dailyBins_20120319.json'
-    'dailyBins_20130625.json'
-    'dailyBins_20130705.json'
-]
-(err, data) <~ async.map sources, loadData
-new Serviceability do
-    ".container.c1"
-    data.0
-
-new Serviceability do
-    ".container.c2"
-    data.1
-
-new Serviceability do
-    ".container.c3"
-    data.2
-
-new ServiceabilityDifference do
-    ".container.c4"
-    data.0
-    data.1
-
-new Tooltip!watchElements!
