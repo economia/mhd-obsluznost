@@ -79,11 +79,13 @@ body #wrap .container .day:nth-child(2) .minuteMarks .legend {
   display: block;
 }
 body #wrap .container.c2 .dayMark,
-body #wrap .container.c3 .dayMark {
+body #wrap .container.c3 .dayMark,
+body #wrap .container.c4 .dayMark {
   display: none;
 }
 body #wrap .container.c2 .hourMarks,
-body #wrap .container.c3 .hourMarks {
+body #wrap .container.c3 .hourMarks,
+body #wrap .container.c4 .hourMarks {
   margin-top: 0px;
 }
 .tooltip {
