@@ -5,11 +5,7 @@ dayTexts = <[Pondělí Úterý Středa Čtvrtek Pátek Sobota Neděle]>
 minuteTexts = <[10 30 50 ]>
 hoursTexts = [0 til 24 by 2]
 
-class Serviceability
-    (parentSelector, @data) ->
-        @container = d3.select parentSelector
-        @draw!
-
+GraphDrawer =
     draw: ->
         hourMarks = @container.append "div" .attr "class" "hourMarks"
             ..selectAll "hourMark"
@@ -27,16 +23,13 @@ class Serviceability
                 ..append "div"
                     ..attr \class \dayMark
                     ..text (data, index) -> dayTexts[index]
-        color = d3.scale.linear!
-            .domain [0, maxValue*midTonePositions.0, maxValue*midTonePositions.1, maxValue]
-            .range  ['#2C7BB6', '#ABD9E9', '#FDAE61' '#D7191C']
 
         days.selectAll ".bin"
             .data -> it
             .enter!append "div"
                 ..attr \class \bin
                 ..attr \data-tooltip (value, binIndex) -> escape "<strong>#{getTime binIndex}:</strong> <strong>#value</strong> obsloužených zastávek"
-                ..style \background -> color it
+                ..style \background ~> @color it
 
         days.append "div" .attr "class", "minuteMarks"
             ..selectAll ".minuteMark"
@@ -48,6 +41,15 @@ class Serviceability
             ..append "div"
                 ..attr \class "legend"
                 ..text "minuty"
+
+class Serviceability implements GraphDrawer
+    (parentSelector, @data) ->
+        @container = d3.select parentSelector
+        @color = d3.scale.linear!
+            .domain [0, maxValue*midTonePositions.0, maxValue*midTonePositions.1, maxValue]
+            .range  ['#2C7BB6', '#ABD9E9', '#FDAE61' '#D7191C']
+        @draw!
+
 formatTime = (seconds) ->
     hours = "#{Math.floor seconds/3600}"
     minutes = "#{Math.floor seconds%3600/60}"
