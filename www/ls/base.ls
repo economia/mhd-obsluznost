@@ -1,5 +1,5 @@
 binLength = 600_seconds
-maxValue = 9787
+maxValue = 20
 midTonePositions = [0.2 0.35]
 dayTexts = <[Pondělí Úterý Středa Čtvrtek Pátek Sobota Neděle]>
 minuteTexts = <[10 30 50 ]>
@@ -58,7 +58,7 @@ window.ServiceabilityDifference = class ServiceabilityDifference implements Grap
         @container = d3.select parentSelector
         @data = @computeDifference dataA, dataB
         @color = d3.scale.linear!
-            .domain [-2200, 0,560]
+            .domain [5, 0,5]
             .range  ['#D7191C' '#FFFFBF' '#1A9641']
         @draw!
 
