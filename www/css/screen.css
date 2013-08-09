@@ -2,8 +2,21 @@ body {
   font-family: arial, helvetica, sans-serif;
   margin: 0px;
 }
-body #wrap {
+body #wrap  body #wrap #map {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+  }
+ {
+
   width: 550px;
+}
+body #wrap #map {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
 }
 body #wrap h2 {
   font-size: 1.1em;
