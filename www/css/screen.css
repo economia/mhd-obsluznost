@@ -10,6 +10,48 @@ body #wrap h2 {
   margin-bottom: 0.5em;
   margin-left: 39px;
 }
+body #wrap .legend {
+  margin: 0px;
+  float: left;
+  width: 100%;
+}
+body #wrap .legend dt {
+  float: right;
+  clear: right;
+  overflow: hidden;
+  height: 10px;
+  margin-right: 8px;
+  position: relative;
+  top: 2px;
+  width: 11px;
+  margin-bottom: 10px;
+}
+body #wrap .legend dt.bad {
+  border: 1px solid #163d5b;
+  background: #2c7bb6;
+  color: #2c7bb6;
+}
+body #wrap .legend dt.good {
+  border: 1px solid #6b0c0e;
+  background: #d7191c;
+  color: #d7191c;
+}
+body #wrap .legend dt.dbad {
+  border: 1px solid #6b0c0e;
+  background: #d7191c;
+  color: #d7191c;
+}
+body #wrap .legend dt.dgood {
+  border: 1px solid #0d4b21;
+  background: #1a9641;
+  color: #1a9641;
+}
+body #wrap .legend dd {
+  font-size: 0.8em;
+  float: right;
+  margin-left: 0px;
+  margin-right: 10px;
+}
 body #wrap .container {
   float: left;
   margin-bottom: 20px;

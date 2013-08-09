@@ -8,9 +8,45 @@ body
             font-size 1.1em
             margin-bottom 0.5em
             margin-left hourMarkWidth
+        .legend
+            margin 0px
+            float left
+            width 100%
+            dt
+                float right
+                clear right
+                overflow hidden
+                height 10px
+                margin-right 8px
+                position relative
+                top 2px
+                width 11px
+                margin-bottom 10px
+                &.bad
+                    border 1px solid darken(#2C7BB6, 50%)
+                    background #2C7BB6
+                    color #2C7BB6
+                &.good
+                    border 1px solid darken(#D7191C, 50%)
+                    background #D7191C
+                    color #D7191C
+                &.dbad
+                    border 1px solid darken(#D7191C, 50%)
+                    background #D7191C
+                    color #D7191C
+                &.dgood
+                    border 1px solid darken(#1A9641, 50%)
+                    background #1A9641
+                    color #1A9641
+            dd
+                font-size 0.8em
+                float right
+                margin-left 0px
+                margin-right 10px
         .container
             float left
             margin-bottom 20px
+
             .hourMarks
                 float left
                 text-align right
