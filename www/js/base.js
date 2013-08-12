@@ -66,10 +66,20 @@
     importAll$(prototype, arguments[0]);
     function ServiceabilityDifference(parentSelector, dataA, dataB){
       this.container = d3.select(parentSelector);
-      this.data = this.computeDifference(dataA, dataB);
-      this.color = d3.scale.linear().domain([-2200, 0, 350, 900]).range(['#D7191C', '#FFFFBF', '#1A9641', '#1A9641']);
-      this.draw();
+      this.color = d3.scale.linear().range(['#D7191C', '#FFFFBF', '#1A9641', '#1A9641']);
     }
+    prototype.setGlobalData = function(){
+      this.color.domain([-2200, 0, 350, 900]);
+      return this.setData.apply(this, arguments);
+    };
+    prototype.setIndividualData = function(){
+      this.color.domain([-18, 0, 18, 31]);
+      return this.setData.apply(this, arguments);
+    };
+    prototype.setData = function(dataA, dataB){
+      this.data = this.computeDifference(dataA, dataB);
+      return this.draw();
+    };
     prototype.getTooltipText = function(value, binIndex){
       var direction;
       direction = value > 0 ? "více" : "méně";

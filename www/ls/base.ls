@@ -56,10 +56,19 @@ window.Serviceability = class Serviceability implements GraphDrawer
 window.ServiceabilityDifference = class ServiceabilityDifference implements GraphDrawer
     (parentSelector, dataA, dataB) ->
         @container = d3.select parentSelector
-        @data = @computeDifference dataA, dataB
         @color = d3.scale.linear!
-            .domain [-2200, 0,350, 900]
             .range  ['#D7191C' '#FFFFBF' '#1A9641', '#1A9641']
+
+    setGlobalData: ->
+        @color.domain [-2200, 0,350, 900]
+        @setData ...
+
+    setIndividualData: ->
+        @color.domain [-18, 0,18, 31]
+        @setData ...
+
+    setData: (dataA, dataB) ->
+        @data = @computeDifference dataA, dataB
         @draw!
 
     getTooltipText: (value, binIndex) ->
