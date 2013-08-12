@@ -10,26 +10,20 @@ dirs = dates.map -> "../www/data/bins_#it/"
 usableIds = files[0].filter -> it in files[1]
 # usableIds.length = 1
 (err, differences) <~ async.mapLimit usableIds, 20, (id, cb) ->
-    (err, sums) <~ async.map dirs, (dir, cb) ->
+    (err, values) <~ async.map dirs, (dir, cb) ->
         (err, file) <~ fs.readFile "#dir/#id.json"
         data = file.toString! |> JSON.parse
-        # console.log data.0
-        sum = data.reduce do
-            (p, c) ->
-                p + c.reduce do
-                    (p, c) ->
-                        p + c
-                    0
-            0
-        cb null, sum
+        values = [].concat ...data
+        cb null, values
 
-    difference = sums.1 - sums.0
-    cb null, difference
-positive = differences.filter -> it > 0
-negative = differences.filter -> it < 0
-results = []
-differences.forEach (diff, index) ->
-    id = usableIds[index]
-    results[id] = diff
-<~ fs.writeFile "../www/data/stopDifferences.json", JSON.stringify results
-console.log "+#{positive.length} / -#{negative.length} =  #{differences.length}"
+    differences = values.0.map (value, index) ->
+        values[1][index] - values[0][index]
+    cb null, differences
+globalDifferences = [].concat ...differences
+globalDifferences.sort (a, b) -> a - b
+console.log "total: #{globalDifferences.length}"
+console.log "Max: #{globalDifferences[globalDifferences.length - 1]}"
+console.log "Min: #{globalDifferences[0]}"
+
+# <~ fs.writeFile "../www/data/stopDifferenceValues.json", JSON.stringify globalDifferences
+
