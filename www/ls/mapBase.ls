@@ -19,7 +19,7 @@ loadData = (src, cb) ->
     *   loadData
 
 color = d3.scale.linear!
-    .domain [-2000 100 0 100 2000]
+    .domain [-2000 -100 0 100 2000]
     .range  <[#D7191C #FDAE61 #FFFFBF #A6D96A #1A9641]>
 window.stationCoordinates = stationCoordinates
 

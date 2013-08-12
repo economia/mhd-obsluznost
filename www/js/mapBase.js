@@ -20,7 +20,7 @@
   async.map(['./data/stationCoordinates.json', './data/stopDifferences.json', './data/stationNames.json'], loadData, function(err, arg$){
     var stationCoordinates, stopDifferences, stationNames, color;
     stationCoordinates = arg$[0], stopDifferences = arg$[1], stationNames = arg$[2];
-    color = d3.scale.linear().domain([-2000, 100, 0, 100, 2000]).range(['#D7191C', '#FDAE61', '#FFFFBF', '#A6D96A', '#1A9641']);
+    color = d3.scale.linear().domain([-2000, -100, 0, 100, 2000]).range(['#D7191C', '#FDAE61', '#FFFFBF', '#A6D96A', '#1A9641']);
     window.stationCoordinates = stationCoordinates;
     return stationCoordinates.forEach(function(coord, id){
       var diff, markerColor, title, dir, icon, x$;
