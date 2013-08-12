@@ -13,25 +13,28 @@
   }));
   $.getJSON('./data/stationCoordinates.json', function(stationCoordinates){
     return $.getJSON('./data/stopDifferences.json', function(stopDifferences){
-      var color;
-      color = d3.scale.linear().domain([-2000, 0, 2000]).range(['#D7191C', '#FFFFBF', '#1A9641']);
-      window.stationCoordinates = stationCoordinates;
-      return stationCoordinates.forEach(function(coord, id){
-        var diff, markerColor, icon, x$;
-        if (coord) {
-          diff = stopDifferences[id];
-          markerColor = color(diff);
-          icon = L.divIcon({
-            html: "<div style='background: " + markerColor + "'></div>",
-            iconSize: [15, 15],
-            className: "station-marker"
-          });
-          x$ = new L.marker(coord, {
-            icon: icon
-          });
-          x$.addTo(map);
-          return x$;
-        }
+      return $.getJSON('./data/stationNames.json', function(stationNames){
+        var color;
+        color = d3.scale.linear().domain([-2000, 0, 2000]).range(['#D7191C', '#FFFFBF', '#1A9641']);
+        window.stationCoordinates = stationCoordinates;
+        return stationCoordinates.forEach(function(coord, id){
+          var diff, markerColor, dir, icon, x$;
+          if (coord) {
+            diff = stopDifferences[id];
+            markerColor = color(diff);
+            dir = diff > 0 ? "více" : "méně";
+            icon = L.divIcon({
+              html: "<span style='background: " + markerColor + "' title='" + stationNames[id] + ": o " + Math.abs(diff) + " " + dir + " spojení'></span>",
+              iconSize: [15, 15],
+              className: "station-marker"
+            });
+            x$ = new L.marker(coord, {
+              icon: icon
+            });
+            x$.addTo(map);
+            return x$;
+          }
+        });
       });
     });
   });

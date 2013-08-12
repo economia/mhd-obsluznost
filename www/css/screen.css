@@ -12,7 +12,8 @@ body #wrap #map .station-marker {
   width: 15px;
   height: 15px;
 }
-body #wrap #map .station-marker div {
+body #wrap #map .station-marker span {
+  display: block;
   width: 15px;
   height: 15px;
   border-radius: 50%;

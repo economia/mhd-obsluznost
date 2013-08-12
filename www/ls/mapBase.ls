@@ -11,9 +11,7 @@ map
         zIndex: 1 attribution: '<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cz/" target = "_blank">CC BY-NC-SA 3.0 CZ</a> IHNED.cz, mapové data &copy; <a target="_blank" href="http://www.openstreetmap.org">OpenStreetMap.org</a>, <a target="_blank" href="http://www.infoprovsechny.cz/request/aktuln_verze_gtfs#incoming-988">dopravní data</a> <a target="_blank" href="http://dpp.cz">DPP Praha</a>'
 (stationCoordinates) <~ $.getJSON './data/stationCoordinates.json'
 (stopDifferences) <~ $.getJSON './data/stopDifferences.json'
-# console.log Math.max ...stopDifferences # 4400
-# console.log Math.min ...stopDifferences # -8944
-
+(stationNames) <~ $.getJSON './data/stationNames.json'
 color = d3.scale.linear!
     .domain [-2000, 0,2000]
     .range  ['#D7191C' '#FFFFBF' '#1A9641']
@@ -24,8 +22,9 @@ stationCoordinates.forEach (coord, id) ->
         diff = stopDifferences[id]
         # return if -50 < diff < 50
         markerColor = color diff
+        dir = if diff > 0 then "více" else "méně"
         icon = L.divIcon do
-            *   html: "<div style='background: #markerColor'></div>"
+            *   html: "<span style='background: #markerColor' title='#{stationNames[id]}: o #{Math.abs diff} #dir spojení'></span>"
                 iconSize: [15 15]
                 className: "station-marker"
         new L.marker coord, {icon}
