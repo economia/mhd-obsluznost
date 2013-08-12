@@ -100,9 +100,18 @@
       return this.draw();
     };
     prototype.getTooltipText = function(value, binIndex){
-      var direction;
+      var direction, str;
       direction = value > 0 ? "více" : "méně";
-      return escape("<strong>" + getTime(binIndex) + ":</strong> o <strong>" + Math.abs(value) + "</strong> " + direction + " obsloužených zastávek");
+      str = "<strong>" + getTime(binIndex) + ":</strong> ";
+      str += (function(){
+        switch (false) {
+        case !value:
+          return "o <strong>" + Math.abs(value) + "</strong> " + direction + " obsloužených zastávek";
+        default:
+          return "beze změn";
+        }
+      }());
+      return escape(str);
     };
     prototype.computeDifference = function(dataA, dataB){
       var data, i$, len$, dayId, day, j$, len1$, hourId, value;

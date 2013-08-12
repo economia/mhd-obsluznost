@@ -85,7 +85,12 @@ window.ServiceabilityDifference = class ServiceabilityDifference implements Grap
 
     getTooltipText: (value, binIndex) ->
         direction = if value > 0 then "více" else "méně"
-        escape "<strong>#{getTime binIndex}:</strong> o <strong>#{Math.abs value}</strong> #direction obsloužených zastávek"
+        str = "<strong>#{getTime binIndex}:</strong> "
+        str += switch
+            | value => "o <strong>#{Math.abs value}</strong> #direction obsloužených zastávek"
+            | _     => "beze změn"
+
+        escape str
 
     computeDifference: (dataA, dataB) ->
         data = []
