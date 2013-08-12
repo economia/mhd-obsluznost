@@ -97,7 +97,6 @@
     };
     prototype.setData = function(dataA, dataB){
       this.data = this.computeDifference(dataA, dataB);
-      console.log(this.data[0][23]);
       return this.draw();
     };
     prototype.getTooltipText = function(value, binIndex){

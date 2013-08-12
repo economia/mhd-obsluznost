@@ -81,7 +81,6 @@ window.ServiceabilityDifference = class ServiceabilityDifference implements Grap
 
     setData: (dataA, dataB) ->
         @data = @computeDifference dataA, dataB
-        console.log @data[0][23]
         @draw!
 
     getTooltipText: (value, binIndex) ->
