@@ -31,7 +31,8 @@
                     'dailyBins_20130705.json'
                 ];
                 async.map(sources, loadData, function(err, data) {
-                    new ServiceabilityDifference(".container.c1", data[0], data[1]);
+                    sd = new ServiceabilityDifference(".container.c1");
+                    sd.setGlobalData(data[0], data[1]);
                     new Tooltip().watchElements()
                 });
             </script>
