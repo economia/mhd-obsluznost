@@ -8,7 +8,9 @@
         <script src="http://service.ihned.cz/js/tooltip/tooltip.js"></script>
         <script src="http://service.ihned.cz/js/d3.v3.min.js"></script>
         <script src="http://service.ihned.cz/js/async.js"></script>
+        <script src="http://service.ihned.cz/js/chosen/chosen.jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="http://service.ihned.cz/js/tooltip/tooltip.css" />
+        <link rel="stylesheet" type="text/css" href="http://service.ihned.cz/js/chosen/chosen.min.css" />
         <link rel="stylesheet" type="text/css" href="css/screen.css?v=1" />
     </head>
     <body>
@@ -52,10 +54,10 @@
                 }
                 changeToStation(null);
                 $.getJSON("./data/stationNames.json", function(stationNames) {
-                    var $stationSelect = $("<select />"),
+                    var $stationSelect = $("<select data-placeholder='Všechny stanice' />"),
                         i, len,
                         stationName;
-                    $stationSelect.append("<option value='0'>Všechny stanice</option>");
+                    $stationSelect.append("<option value='0'></option>");
                     for(var i = 0, len = stationNames.length; i < len; ++i) {
                         var stationName = stationNames[i];
                         if (stationName !== null) {
@@ -67,6 +69,7 @@
                         var newStationId = parseInt($stationSelect.val(), 10);
                         changeToStation(newStationId);
                     });
+                    $stationSelect.chosen({allow_single_deselect: true});
                 });
             </script>
             <script type="text/javascript">
