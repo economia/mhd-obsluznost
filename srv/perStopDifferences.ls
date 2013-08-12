@@ -8,6 +8,19 @@ dirs = dates.map -> "../www/data/bins_#it/"
     ids = dir.map -> it.split '.' .0 |> parseInt _, 10
     cb null, ids
 usableIds = files[0].filter -> it in files[1]
+stationNames = require '../www/data/stationNames.json'
+stations = []
+
+usableIds.forEach (id) ->
+    name = stationNames[id]
+    stations.push {id, name}
+stations.sort (a, b) ->
+    switch
+        | a.name < b.name => -1
+        | a.name > b.name => 1
+        | otherwise       => 0
+<~ fs.writeFile "../www/data/stations.json", JSON.stringify stations
+return
 # usableIds.length = 1
 (err, differences) <~ async.mapLimit usableIds, 20, (id, cb) ->
     (err, values) <~ async.map dirs, (dir, cb) ->
