@@ -61,6 +61,12 @@ body #wrap .legend dd {
 body #wrap .container {
   float: left;
   margin-bottom: 20px;
+  position: relative;
+}
+body #wrap .container .selectorContainer {
+  position: absolute;
+  top: -40px;
+  left: 39px;
 }
 body #wrap .container .hourMarks {
   float: left;

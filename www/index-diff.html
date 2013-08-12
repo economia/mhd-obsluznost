@@ -21,6 +21,7 @@
                 <dd class="dgood">Zlepšení</dd>
             </dl>
             <div class="container c1">
+                <div class="selectorContainer"></div>
                 <img class="fallback" src="img/2012-2013.png" alt="Množství obsloužených zastávek 2012" />
             </div>
             <script src="js/base.js"></script>
@@ -34,6 +35,19 @@
                 async.map(sources, loadData, function(err, data) {
                     var sd = new ServiceabilityDifference(".container.c1");
                     sd.setGlobalData(data[0], data[1]);
+                });
+                $.getJSON("./data/stationNames.json", function(stationNames) {
+                    var $stationSelect = $("<select />"),
+                        i, len,
+                        stationName;
+                    $stationSelect.append("<option value='0'>Všechny stanice</option>");
+                    for(var i = 0, len = stationNames.length; i < len; ++i) {
+                        var stationName = stationNames[i];
+                        if (stationName !== null) {
+                            $stationSelect.append("<option value='" + i +"'>" + stationName + "</option>");
+                        }
+                    }
+                    $stationSelect.appendTo('.container.c1 .selectorContainer');
                 });
             </script>
             <script type="text/javascript">
