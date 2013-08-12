@@ -53,15 +53,15 @@
                     });
                 }
                 changeToStation(null);
-                $.getJSON("./data/stationNames.json", function(stationNames) {
+                $.getJSON("./data/stations.json", function(stationNames) {
                     var $stationSelect = $("<select data-placeholder='Všechny stanice' />"),
                         i, len,
-                        stationName;
+                        station;
                     $stationSelect.append("<option value='0'></option>");
                     for(var i = 0, len = stationNames.length; i < len; ++i) {
-                        var stationName = stationNames[i];
-                        if (stationName !== null) {
-                            $stationSelect.append("<option value='" + i +"'>" + stationName + "</option>");
+                        var station = stationNames[i];
+                        if (station !== null) {
+                            $stationSelect.append("<option value='" + station.id +"'>" + station.name + "</option>");
                         }
                     }
                     $stationSelect.appendTo('.container.c1 .selectorContainer');
