@@ -20,16 +20,16 @@
   async.map(['./data/stationCoordinates.json', './data/stopDifferences.json', './data/stationNames.json'], loadData, function(err, arg$){
     var stationCoordinates, stopDifferences, stationNames, color;
     stationCoordinates = arg$[0], stopDifferences = arg$[1], stationNames = arg$[2];
-    color = d3.scale.linear().domain([-2000, 0, 2000]).range(['#D7191C', '#FFFFBF', '#1A9641']);
+    color = d3.scale.linear().domain([-2000, 100, 0, 100, 2000]).range(['#D7191C', '#FDAE61', '#FFFFBF', '#A6D96A', '#1A9641']);
     window.stationCoordinates = stationCoordinates;
     return stationCoordinates.forEach(function(coord, id){
-      var diff, markerColor, dir, icon, x$;
+      var diff, markerColor, title, dir, icon, x$;
       if (coord) {
         diff = stopDifferences[id];
         markerColor = color(diff);
-        dir = diff > 0 ? "více" : "méně";
+        title = diff !== 0 ? (dir = diff > 0 ? "více" : "méně", "o " + Math.abs(diff) + " " + dir + " spojení") : "žádná změna";
         icon = L.divIcon({
-          html: "<span style='background: " + markerColor + "' title='" + stationNames[id] + ": o " + Math.abs(diff) + " " + dir + " spojení'></span>",
+          html: "<span style='background: " + markerColor + "' title='" + stationNames[id] + ": " + title + "'></span>",
           iconSize: [15, 15],
           className: "station-marker"
         });

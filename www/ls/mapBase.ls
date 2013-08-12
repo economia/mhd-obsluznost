@@ -26,11 +26,14 @@ window.stationCoordinates = stationCoordinates
 stationCoordinates.forEach (coord, id) ->
     if coord
         diff = stopDifferences[id]
-        # return if -50 < diff < 50
         markerColor = color diff
-        dir = if diff > 0 then "více" else "méně"
+        title = if diff isnt 0
+            dir = if diff > 0 then "více" else "méně"
+            "o #{Math.abs diff} #dir spojení"
+        else
+            "žádná změna"
         icon = L.divIcon do
-            *   html: "<span style='background: #markerColor' title='#{stationNames[id]}: o #{Math.abs diff} #dir spojení'></span>"
+            *   html: "<span style='background: #markerColor' title='#{stationNames[id]}: #title'></span>"
                 iconSize: [15 15]
                 className: "station-marker"
         new L.marker coord, {icon}
