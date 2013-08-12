@@ -7,8 +7,14 @@
   minuteTexts = ['10', '30', '50'];
   hoursTexts = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
   GraphDrawer = {
+    drawn: false,
+    days: null,
+    bins: null,
     draw: function(){
-      var x$, hourMarks, y$, z$, z1$, days, z2$, z3$, z4$, z5$, z6$, this$ = this;
+      var x$, hourMarks, y$, z$, z1$, z2$, z3$, z4$, z5$, z6$, this$ = this;
+      if (this.drawn) {
+        return this.redraw();
+      }
       x$ = hourMarks = this.container.append("div").attr("class", "hourMarks");
       y$ = x$.selectAll("hourMark").data(hoursTexts).enter().append("div");
       y$.attr("class", 'hourMark');
@@ -18,14 +24,14 @@
       z$ = x$.append("div");
       z$.attr('class', "legend");
       z$.text("Hodiny");
-      z1$ = days = this.container.selectAll(".day").data(this.data).enter().append("div");
+      z1$ = this.days = this.container.selectAll(".day").data(this.data).enter().append("div");
       z1$.attr('class', 'day');
       z2$ = z1$.append("div");
       z2$.attr('class', 'dayMark');
       z2$.text(function(data, index){
         return dayTexts[index];
       });
-      z3$ = days.selectAll(".bin").data(function(it){
+      z3$ = this.days.selectAll(".bin").data(function(it){
         return it;
       }).enter().append("div");
       z3$.attr('class', 'bin');
@@ -33,7 +39,7 @@
       z3$.style('background', function(it){
         return this$.color(it);
       });
-      z4$ = days.append("div").attr("class", "minuteMarks");
+      z4$ = this.days.append("div").attr("class", "minuteMarks");
       z5$ = z4$.selectAll(".minuteMark").data(minuteTexts).enter().append('div');
       z5$.attr('class', 'minuteMark');
       z5$.text(function(it){
@@ -42,7 +48,20 @@
       z6$ = z4$.append("div");
       z6$.attr('class', "legend");
       z6$.text("minuty");
-      return z4$;
+      return this.drawn = true;
+    },
+    redraw: function(){
+      var x$, this$ = this;
+      this.days.data(this.data);
+      x$ = this.days.selectAll(".bin");
+      x$.data(function(it){
+        return it;
+      });
+      x$.attr('data-tooltip', this.getTooltipText);
+      x$.style('background', function(it){
+        return this$.color(it);
+      });
+      return x$;
     }
   };
   window.Serviceability = Serviceability = (function(){
@@ -78,6 +97,7 @@
     };
     prototype.setData = function(dataA, dataB){
       this.data = this.computeDifference(dataA, dataB);
+      console.log(this.data[0][23]);
       return this.draw();
     };
     prototype.getTooltipText = function(value, binIndex){

@@ -6,7 +6,11 @@ minuteTexts = <[10 30 50 ]>
 hoursTexts = [0 til 24 by 2]
 
 GraphDrawer =
+    drawn: no
+    days: null
+    bins: null
     draw: ->
+        return @redraw! if @drawn
         hourMarks = @container.append "div" .attr "class" "hourMarks"
             ..selectAll "hourMark"
                 .data hoursTexts
@@ -16,7 +20,7 @@ GraphDrawer =
             ..append "div"
                 ..attr \class "legend"
                 ..text "Hodiny"
-        days = @container.selectAll ".day"
+        @days = @container.selectAll ".day"
             .data @data
             .enter!append "div"
                 ..attr \class \day
@@ -24,14 +28,14 @@ GraphDrawer =
                     ..attr \class \dayMark
                     ..text (data, index) -> dayTexts[index]
 
-        days.selectAll ".bin"
+        @days.selectAll ".bin"
             .data -> it
             .enter!append "div"
                 ..attr \class \bin
                 ..attr \data-tooltip @getTooltipText
                 ..style \background ~> @color it
 
-        days.append "div" .attr "class", "minuteMarks"
+        @days.append "div" .attr "class", "minuteMarks"
             ..selectAll ".minuteMark"
                 .data minuteTexts
                 .enter!.append \div
@@ -41,6 +45,14 @@ GraphDrawer =
             ..append "div"
                 ..attr \class "legend"
                 ..text "minuty"
+        @drawn = yes
+
+    redraw: ->
+        @days.data @data
+        @days.selectAll ".bin"
+            ..data -> it
+            ..attr \data-tooltip @getTooltipText
+            ..style \background ~> @color it
 
 window.Serviceability = class Serviceability implements GraphDrawer
     (parentSelector, @data) ->
@@ -69,6 +81,7 @@ window.ServiceabilityDifference = class ServiceabilityDifference implements Grap
 
     setData: (dataA, dataB) ->
         @data = @computeDifference dataA, dataB
+        console.log @data[0][23]
         @draw!
 
     getTooltipText: (value, binIndex) ->
