@@ -3,7 +3,8 @@
   window.map = L.map('map', {
     fadeAnimation: false,
     minZoom: 6,
-    maxZoom: 14
+    maxZoom: 14,
+    maxBounds: [[50.356, 14.128], [49.693, 15.381]]
   });
   x$ = map;
   x$.setView([50.08, 14.4], 12);

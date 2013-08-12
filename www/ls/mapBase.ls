@@ -3,7 +3,7 @@ window.map = L.map do
     *   fadeAnimation: false,
         minZoom: 6,
         maxZoom: 14
-        # maxBounds: [[50.356 14.128], [49.693 15.381]]
+        maxBounds: [[50.356 14.128], [49.693 15.381]]
 map
     ..setView [50.08, 14.4], 12
     ..addLayer L.tileLayer do
