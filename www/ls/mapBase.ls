@@ -24,6 +24,9 @@ stationCoordinates.forEach (coord, id) ->
         diff = stopDifferences[id]
         # return if -50 < diff < 50
         markerColor = color diff
-        new L.CircleMarker coord, fillColor: markerColor, color: \black, strokeOpacity: 0.5, strokeWidth: 0.5, fillOpacity: 0.9
+        icon = L.divIcon do
+            *   html: "<div style='background: #markerColor'></div>"
+                iconSize: [15 15]
+                className: "station-marker"
+        new L.marker coord, {icon}
             ..addTo map
-

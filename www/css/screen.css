@@ -8,6 +8,17 @@ body #wrap #map {
   bottom: 0px;
   width: 100%;
 }
+body #wrap #map .station-marker {
+  width: 15px;
+  height: 15px;
+}
+body #wrap #map .station-marker div {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid #888;
+  opacity: 0.8;
+}
 body #wrap {
   width: 550px;
 }

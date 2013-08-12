@@ -17,16 +17,17 @@
       color = d3.scale.linear().domain([-2000, 0, 2000]).range(['#D7191C', '#FFFFBF', '#1A9641']);
       window.stationCoordinates = stationCoordinates;
       return stationCoordinates.forEach(function(coord, id){
-        var diff, markerColor, x$;
+        var diff, markerColor, icon, x$;
         if (coord) {
           diff = stopDifferences[id];
           markerColor = color(diff);
-          x$ = new L.CircleMarker(coord, {
-            fillColor: markerColor,
-            color: 'black',
-            strokeOpacity: 0.5,
-            strokeWidth: 0.5,
-            fillOpacity: 0.9
+          icon = L.divIcon({
+            html: "<div style='background: " + markerColor + "'></div>",
+            iconSize: [15, 15],
+            className: "station-marker"
+          });
+          x$ = new L.marker(coord, {
+            icon: icon
           });
           x$.addTo(map);
           return x$;
