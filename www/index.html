@@ -33,20 +33,24 @@
             <div class="container c3">
                 <img class="fallback" src="img/2013-7.png" alt="Množství obsloužených zastávek 2013 &ndash; červenec" />
             </div>
+            <h2>Rok 2013 &ndash; září</h2>
+            <div class="container c4">
+                <!-- <img class="fallback" src="img/2013-7.png" alt="Množství obsloužených zastávek 2013 &ndash; červenec" /> -->
+            </div>
             <script src="js/base.js"></script>
             <script>
                 d3.selectAll(".fallback").remove()
                 var sources = [
                     'dailyBins_20120319.json',
                     'dailyBins_20130625.json',
-                    'dailyBins_20130705.json'
+                    'dailyBins_20130705.json',
+                    'dailyBins_20130903.json'
                 ];
                 async.map(sources, loadData, function(err, data) {
                     new Serviceability(".container.c1", data[0]);
                     new Serviceability(".container.c2", data[1]);
                     new Serviceability(".container.c3", data[2]);
-                    new ServiceabilityDifference(".container.c4", data[0], data[1]);
-                    new ServiceabilityDifference(".container.c5", data[1], data[2]);
+                    new Serviceability(".container.c4", data[3]);
                     new Tooltip().watchElements()
                 });
             </script>
