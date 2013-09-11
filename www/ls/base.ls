@@ -69,14 +69,14 @@ window.ServiceabilityDifference = class ServiceabilityDifference implements Grap
     (parentSelector, dataA, dataB) ->
         @container = d3.select parentSelector
         @color = d3.scale.linear!
-            .range  ['#D7191C' '#FFFFBF' '#1A9641', '#1A9641']
+            .range  ['#D7191C', '#D7191C' '#FFFFBF' '#1A9641', '#1A9641']
 
     setGlobalData: ->
-        @color.domain [-2200, 0,350, 900]
+        @color.domain [-9999, -350, 0,350, 9999]
         @setData ...
 
     setIndividualData: ->
-        @color.domain [-18, 0,18, 31]
+        @color.domain [-999, -18, 0,18, 999]
         @setData ...
 
     setData: (dataA, dataB) ->

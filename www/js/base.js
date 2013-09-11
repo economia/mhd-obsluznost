@@ -85,14 +85,14 @@
     importAll$(prototype, arguments[0]);
     function ServiceabilityDifference(parentSelector, dataA, dataB){
       this.container = d3.select(parentSelector);
-      this.color = d3.scale.linear().range(['#D7191C', '#FFFFBF', '#1A9641', '#1A9641']);
+      this.color = d3.scale.linear().range(['#D7191C', '#D7191C', '#FFFFBF', '#1A9641', '#1A9641']);
     }
     prototype.setGlobalData = function(){
-      this.color.domain([-2200, 0, 350, 900]);
+      this.color.domain([-9999, -350, 0, 350, 9999]);
       return this.setData.apply(this, arguments);
     };
     prototype.setIndividualData = function(){
-      this.color.domain([-18, 0, 18, 31]);
+      this.color.domain([-999, -18, 0, 18, 999]);
       return this.setData.apply(this, arguments);
     };
     prototype.setData = function(dataA, dataB){
